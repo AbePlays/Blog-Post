@@ -1,0 +1,27 @@
+<%- include partials/header -%>
+<h1 style="padding-left: 270px;">Compose</h1>
+<form action="/compose" method="post">
+  <label style="display: block; padding-left: 270px;">Title</label>
+  <input
+    type="text"
+    name="titleText"
+    style="display: block; width: 68%; margin-left: 270px;"
+  />
+  <label style="display: block; padding-left: 270px;">Post</label>
+  <textarea
+    name="publishItem"
+    id=""
+    cols="30"
+    rows="10"
+    style="display: block; width: 68%; margin-left: 270px;"
+  ></textarea>
+  <button
+    type="submit"
+    name="button"
+    class="btn btn-primary"
+    style="margin-top: 10px; margin-left: 270px;"
+  >
+    Publish
+  </button>
+</form>
+<%- include partials/footer -%>

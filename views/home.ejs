@@ -1,0 +1,15 @@
+<%- include partials/header -%>
+
+<h1 style="padding-left: 270px;">Home</h1>
+<p style="padding-left: 270px; padding-right: 250px;"><%= firstContent %></p>
+
+<% for(var i = 0; i < listArray.length; i++) { %>
+<h1 style="padding-left: 270px;"><%= listArray[i].textTitle %></h1 style="padding-left: 270px;">
+<% if (listArray[i].textBody.length < 100) { %>
+<p style="padding-left: 270px;"><%= listArray[i].textBody %></p>
+<% }else { %>
+<p style="padding-left: 270px;">
+  <%= listArray[i].textBody.substring(0,100) + "..." %>
+  <a href="/posts/<%= listArray[i].textTitle %>">Read More</a>
+</p>
+<% } %> <% } %> <%- include partials/footer -%>
