@@ -72,18 +72,29 @@ app.get("/posts/:postName", function(req, res) {
   var name = _.lowerCase(req.params.postName);
   var a = 0;
   var i = 0;
-  for (i = 0; i < posts.length; i++) {
-    if (_.lowerCase(posts[i].textTitle) === name) {
-      a = 1;
-      break;
+  mPost.find({}, function(err, foundPosts) {
+    if (err) {
+      console.log("Error here");
+      console.log(err);
+    } else {
+      for (i = 0; i < foundPosts.length; i++) {
+        var titleName = _.lowerCase(foundPosts[i].title);
+        console.log(titleName);
+        if (titleName === name) {
+          a = 1;
+          break;
+        }
+      }
     }
-  }
-  if (a === 0) {
-    res.render("post", { title: "Error 404", body: "Post not found" });
-  } else {
-    console.log("Match found");
-    res.render("post", { title: posts[i].textTitle, body: posts[i].textBody });
-  }
+    if (a === 0) {
+      res.render("post", { title: "Error 404", body: "Post not found" });
+    } else {
+      res.render("post", {
+        title: foundPosts[i].title,
+        body: foundPosts[i].content
+      });
+    }
+  });
 });
 
 app.listen(3000, function() {
