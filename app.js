@@ -6,7 +6,7 @@ const ejs = require("ejs");
 const _ = require("lodash");
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/", {
+mongoose.connect("mongodb://localhost:27017/blogDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -27,15 +27,22 @@ const contactContent =
 
 const app = express();
 
-var posts = [];
-
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/", function(req, res) {
-  res.render("home", { firstContent: homeStartingContent, listArray: posts });
+  mPost.find({}, function(err, foundPosts) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("home", {
+        firstContent: homeStartingContent,
+        listArray: foundPosts
+      });
+    }
+  });
 });
 
 app.get("/about", function(req, res) {
@@ -51,13 +58,13 @@ app.get("/compose", function(req, res) {
 });
 
 app.post("/compose", function(req, res) {
-  var text = req.body.publishItem;
-  var title = req.body.titleText;
-  var post = {
-    textTitle: title,
-    textBody: text
-  };
-  posts.push(post);
+  var returnedTitle = req.body.titleText;
+  var returnedContent = req.body.publishItem;
+  var newPost = mPost({
+    title: returnedTitle,
+    content: returnedContent
+  });
+  newPost.save();
   res.redirect("/");
 });
 

@@ -4,12 +4,12 @@
 <p style="padding-left: 270px; padding-right: 250px;"><%= firstContent %></p>
 
 <% for(var i = 0; i < listArray.length; i++) { %>
-<h1 style="padding-left: 270px;"><%= listArray[i].textTitle %></h1 style="padding-left: 270px;">
-<% if (listArray[i].textBody.length < 100) { %>
-<p style="padding-left: 270px;"><%= listArray[i].textBody %></p>
+<h1 style="padding-left: 270px;"><%= listArray[i].title %></h1 style="padding-left: 270px;">
+<% if (listArray[i].content.length < 100) { %>
+<p style="padding-left: 270px;"><%= listArray[i].content %></p>
 <% }else { %>
 <p style="padding-left: 270px;">
-  <%= listArray[i].textBody.substring(0,100) + "..." %>
+  <%= listArray[i].content.substring(0,100) + "..." %>
   <a href="/posts/<%= listArray[i].textTitle %>">Read More</a>
 </p>
 <% } %> <% } %> <%- include partials/footer -%>
